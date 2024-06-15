@@ -1,11 +1,9 @@
 {
     "name": "MySkEnchannter",
-    "version": "1.1",
+    "version": "1.2",
     "description": "",
     "manifest_version": 3,
-    "permissions": [
-        "activeTab"
-      ],
+    "permissions": ["activeTab", "storage", "scripting"],
    "icons": {
        "48": "/image/favicon.png"
        },
@@ -20,5 +18,8 @@
             "https://www.mysk.school/*"
           ]
         }
-      ]
+      ],
+      "background": {
+        "service_worker": "/scripts/background.js"
+      }
   }
