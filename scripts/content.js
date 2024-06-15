@@ -6,10 +6,9 @@ headers = {
   'X-Client-Info': '@supabase/auth-helpers-nextjs@0.10.0'
 };
 async function loadJson(){
-    chrome.storage.local.get("classroom_id", (data) => {
-        console.log("MySkEnchanter/scripts/background.js:PULL classroom_id");
-        return data
-      });  
+    const response = await fetch('https://raw.githubusercontent.com/keegang6705/MySkEnchanter/master/source/id.json');
+    const response_json = await response.json();
+    return  response_json;
 };
 
 async function getClassroomInfo(classroom_id,extension=null){
