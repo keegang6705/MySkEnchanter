@@ -1,9 +1,9 @@
 {
     "name": "MySkEnchannter",
-    "version": "1.3",
+    "version": "1.4",
     "description": "",
     "manifest_version": 3,
-    "permissions": ["activeTab", "storage", "scripting"],
+    "permissions": ["activeTab","tabs", "storage", "scripting"],
    "icons": {
        "48": "/image/favicon.png"
        },
