@@ -9,7 +9,7 @@
        },
     "action": {
         "default_popup": "/popup/popup.html",
-        "default_icon": "/image/favicon.png"
+        "default_icon": "/image/icon2-512x512.png"
       },
       "content_scripts": [
         {
