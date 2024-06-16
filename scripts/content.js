@@ -56,48 +56,77 @@ main()
     window.removeEventListener('load', load, false);
   
     const overlay = document.createElement('div');
-    overlay.id = 'loading-overlay';
-    overlay.style.cssText = `
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    `;
-  
-    const loadingIndicator = document.createElement('div');
-    loadingIndicator.id = 'loading-indicator';
-    loadingIndicator.style.cssText = `
-      width: 100px;
-      height: 100px;
-      border: 10px solid #fff;
-      border-radius: 50%;
-      border-top: 10px solid #7ff777;
-      animation: spin 2s linear infinite;
-    `;
-  
-    const animationKeyframes = `
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-    `;
-  
-    overlay.appendChild(loadingIndicator);
-    document.body.appendChild(overlay);
-  
+overlay.id = 'loading-overlay';
+overlay.style.cssText = `
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;  
+  justify-content: center;  
+  align-items: center;       
+`;
+
+const progressBarContainer = document.createElement('div');
+progressBarContainer.style.cssText = `
+  width: 60%;
+  height: 12.5px;
+  background-color: #000;
+  border-radius: 5px;
+  border-color: #fff;
+  overflow: hidden;
+`;
+
+const progressBar = document.createElement('div');
+progressBar.id = 'progress-bar';
+progressBar.style.cssText = `
+  width: 0%;  
+  height: 100%;
+  background: linear-gradient(to right, purple,cyan); /* background: linear-gradient(to right, purple,cyan,blue,lime,yellow,orange,red) */;
+  transition: width 1s ease;  
+`;
+
+const text = document.createElement('p');
+text.id = 'text-overlay';
+text.innerHTML = "Downloading data please wait  กำลังโหลดข้อมูลโปรดรอซักครู่";
+text.style.cssText = `
+  color: white;
+  margin-top: 10px;  
+`;
+
+progressBarContainer.appendChild(progressBar);
+overlay.appendChild(progressBarContainer);
+overlay.appendChild(text);
+document.body.appendChild(overlay);
+
+function simulateProgress() {
+  let progress = 0;
+  const intervalId = setInterval(() => {
+    progress += 10;
+    progressBar.style.width = `${progress}%`;
+    if (progress === 100) {
+      clearInterval(intervalId);
+      fadeOutOverlay();
+    }
+  }, 100);
+}
+
+function fadeOutOverlay() {
+  setTimeout(() => {
+    overlay.style.opacity = 0;
+    overlay.style.transition = 'opacity 0.5s ease-in-out';
     setTimeout(() => {
-      overlay.style.display = 'none';
-      listener()
-    }, 2000);
-    const styleElement = document.createElement('style');
-    styleElement.textContent = animationKeyframes;
-    document.head.appendChild(styleElement);
+      document.body.removeChild(overlay);
+    }, 500);
+    listener()
+  }, 1000);
+}
+    simulateProgress();
+
   }, false);
 
   

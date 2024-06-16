@@ -1,11 +1,11 @@
 {
     "name": "MySkEnchannter",
-    "version": "1.4",
+    "version": "1.5",
     "description": "",
     "manifest_version": 3,
     "permissions": ["activeTab","tabs", "storage", "scripting"],
    "icons": {
-       "48": "/image/favicon.png"
+       "512": "/image/icon2-512x512.png"
        },
     "action": {
         "default_popup": "/popup/popup.html",
