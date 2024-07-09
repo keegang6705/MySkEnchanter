@@ -102,16 +102,16 @@ window.addEventListener(
     overlay.appendChild(text);
     document.body.appendChild(overlay);
 
-    function simulateProgress() {
+    function simulateProgress(step,interval) {
       let progress = 0;
       const intervalId = setInterval(() => {
-        progress += 10;
+        progress += step;
         progressBar.style.width = `${progress}%`;
         if (progress === 100) {
           clearInterval(intervalId);
           fadeOutOverlay();
         }
-      }, 100);
+      }, interval);
     }
 
     function fadeOutOverlay() {
@@ -124,7 +124,7 @@ window.addEventListener(
         listener();
       }, 1000);
     }
-    simulateProgress();
+    simulateProgress(10,100);
   },
   false
 );
@@ -167,13 +167,12 @@ async function displayInfo(display_element) {
   console.log(class_info);
   if ((await isMyRoom()) == "yes") {
   } else {
-    /////////////////////////////////////////////////////////////////////////////////////////////
     const card_body = document.querySelector("section.flex-col-reverse");
 // student
       const new_student = document.createElement("section");
       new_student.className = "flex flex-col gap-2";
-      const newElement = document.createElement("div");
-      newElement.classList.add(
+      const studentHeader = document.createElement("div");
+      studentHeader.classList.add(
         "flex",
         "flex-row",
         "items-center",
@@ -200,10 +199,10 @@ async function displayInfo(display_element) {
       const buttonIconDiv = document.createElement("div");
       buttonIconDiv.classList.add("skc-button__icon");
 
-      const icon = document.createElement("i");
-      icon.classList.add("skc-icon");
-      icon.setAttribute("translate", "no");
-      icon.textContent = "download";
+      const studentDownloadIcon = document.createElement("i");
+      studentDownloadIcon.classList.add("skc-icon");
+      studentDownloadIcon.setAttribute("translate", "no");
+      studentDownloadIcon.textContent = "download";
 
       const buttonLabel = document.createElement("span");
       buttonLabel.classList.add("skc-button__label");
@@ -213,13 +212,14 @@ async function displayInfo(display_element) {
       ripple.classList.add("skc-interactive__ripple");
       ripple.style.cssText =
         "top: 0px; left: 0px; width: 130px; height: 130px; opacity: 0.36; transform: scale(0) translateZ(0px);";
-      buttonIconDiv.appendChild(icon);
+      buttonIconDiv.appendChild(studentDownloadIcon);
       button.appendChild(buttonIconDiv);
       button.appendChild(buttonLabel);
-      newElement.appendChild(studentSpan);
-      newElement.appendChild(button);
-      newElement.appendChild(ripple);
-      new_student.appendChild(newElement);
+      studentHeader.appendChild(studentSpan);
+      studentHeader.appendChild(button);
+      studentHeader.appendChild(ripple);
+      //list student
+      new_student.appendChild(studentHeader);
 // contact   
       const new_contact = document.createElement("div");
       new_contact.className = "space-y-2";

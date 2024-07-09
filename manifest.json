@@ -1,6 +1,6 @@
 {
     "name": "MySkEnchannter",
-    "version": "1.5",
+    "version": "1.6",
     "description": "upgrade mysk to epic website",
     "manifest_version": 3,
     "permissions": ["activeTab","tabs", "storage", "scripting"],
