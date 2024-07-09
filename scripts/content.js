@@ -170,7 +170,6 @@ async function displayInfo(display_element) {
     /////////////////////////////////////////////////////////////////////////////////////////////
     const card_body = document.querySelector("section.flex-col-reverse");
 // student
-      
       const new_student = document.createElement("section");
       new_student.className = "flex flex-col gap-2";
       const newElement = document.createElement("div");
@@ -214,7 +213,6 @@ async function displayInfo(display_element) {
       ripple.classList.add("skc-interactive__ripple");
       ripple.style.cssText =
         "top: 0px; left: 0px; width: 130px; height: 130px; opacity: 0.36; transform: scale(0) translateZ(0px);";
-
       buttonIconDiv.appendChild(icon);
       button.appendChild(buttonIconDiv);
       button.appendChild(buttonLabel);
@@ -222,8 +220,7 @@ async function displayInfo(display_element) {
       newElement.appendChild(button);
       newElement.appendChild(ripple);
       new_student.appendChild(newElement);
-// contact
-      
+// contact   
       const new_contact = document.createElement("div");
       new_contact.className = "space-y-2";
       const headingElement = document.createElement("h3");
@@ -232,95 +229,26 @@ async function displayInfo(display_element) {
         "skc-text skc-text--title-medium rounded-md bg-surface px-3 py-2"
       );
       headingElement.textContent = "ช่องทางการติดต่อ";
+
+      const warningElement = document.createElement("div");
+      warningElement.setAttribute("class","mx-4 overflow-hidden rounded-xl border-1 border-outline-variant bg-surface-container sm:mx-0 grid grid-cols-[1.25rem,1fr] items-center gap-2 px-2.5 py-2 text-on-surface *:first:text-on-surface-variant !border-0 !bg-error-container *:!text-on-error-container" );
+      warningElement.style.cssText="border-radius: 28px; opacity: 1";
+      const warningElementIcon = document.createElement("i");
+      warningElementIcon.setAttribute("aria-hidden","true");
+      warningElementIcon.setAttribute("class","skc-icon");
+      warningElementIcon.setAttribute("translate","no");
+      warningElementIcon.style.cssText="font-size: 1.25rem;font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;";
+      warningElementIcon.textContent = "warning";
+      warningElement.appendChild(warningElementIcon)
+      const warningElementText = document.createElement("span");
+      warningElementText.setAttribute("class", "skc-text skc-text--body-medium")
+      warningElementText.textContent = "ถูกปิดใช้งานเนื่องจากความเป็นส่วนตัว";
+      warningElement.appendChild(warningElementText)
+
       new_contact.appendChild(headingElement);
-
-      const list = document.createElement('ul');
-list.classList.add('space-y-1'); // Assuming this class is for spacing between list items
-
-const listItem = document.createElement('li');
-listItem.classList.add('space-y-1'); // Assuming this class is for spacing within the list item
-
-const link = document.createElement('a');
-link.type = 'button';
-link.href = `https://line.me/ti/g/`;
-link.classList.add(
-  'skc-interactive',
-  'skc-card',
-  'skc-card--outlined',
-  'skc-card--row',
-  'items-center',
-  '!border-0',
-  'hover:m-[-1px]',
-  'hover:!border-1',
-  'focus:m-[-1px]',
-  'focus:!border-1'
-);
-link.target = '_blank';
-link.rel = 'noreferrer';
-
-// Content of the link (already defined in the previous response)
-const contentDiv = document.createElement('div');
-contentDiv.classList.add('skc-card-header', '&[_h3>a]:link', '!grid', 'grow', 'grid-cols-[2.5rem,minmax(0,1fr)]', '&>:nth-child(2)>*', '!truncate', '&>:nth-child(2)>span', ':block');
-
-const avatarDiv = document.createElement('div');
-avatarDiv.classList.add('skc-card-header__avatar');
-
-const avatarImg = document.createElement('img');
-avatarImg.setAttribute('alt', '');
-avatarImg.setAttribute('loading', 'lazy');
-avatarImg.setAttribute('width', '320');
-avatarImg.setAttribute('height', '320');
-avatarImg.setAttribute('decoding', 'async');
-avatarImg.setAttribute('data-nimg', '1'); // Assuming data-nimg is necessary
-avatarImg.setAttribute('src', '/_next/static/media/line.080aa3ad.svg');
-avatarImg.style.color = 'transparent';
-
-avatarDiv.appendChild(avatarImg);
-
-const contentSubDiv = document.createElement('div');
-contentSubDiv.classList.add('skc-card-header__content');
-
-const titleH3 = document.createElement('h3');
-titleH3.classList.add('skc-card-header__title');
-
-const titleIcon = document.createElement('i');
-titleIcon.classList.add(
-  'skc-icon',
-  '-mb-1.5',
-  'mr-1',
-  '!inline-block',
-  '!text-outline'
-);
-titleIcon.setAttribute('translate', 'no');
-titleIcon.style.cssText = 'font-size: 1.25rem; font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 20;';
-titleIcon.textContent = 'link';  // Assuming the icon uses text
-
-titleH3.appendChild(titleIcon);
-titleH3.textContent += ' line.me';  // Append the actual title text
-
-const subtitleSpan = document.createElement('span');
-subtitleSpan.classList.add('skc-card-header__subtitle');
-subtitleSpan.textContent = 'ไลน์ห้อง408 (ครู+นักเรียน) • LINE';  // Text content for subtitle
-
-contentSubDiv.appendChild(titleH3);
-contentSubDiv.appendChild(subtitleSpan);
-
-contentDiv.appendChild(avatarDiv);
-contentDiv.appendChild(contentSubDiv);
-
-const rippleSpan = document.createElement('span');
-rippleSpan.classList.add('skc-interactive__ripple');
-rippleSpan.style.cssText = 'top: 0px; left: 0px; width: 160px; height: 160px; opacity: 0.36; transform: scale(0) translateZ(0px);';
-
-link.appendChild(contentDiv);
-      link.appendChild(rippleSpan);
-      
-      listItem.appendChild(link);
-    new_contact.appendChild(listItem)
-
-
+      new_contact.appendChild(warningElement);
+//pack 
     card_body.appendChild(new_student);
     card_body.appendChild(new_contact);
-    /////////////////////////////////////////////////////////////////////////////////////////////
   }
 }
