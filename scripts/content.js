@@ -219,7 +219,16 @@ async function displayInfo(display_element) {
       studentHeader.appendChild(button);
       studentHeader.appendChild(ripple);
       //list student
+      const studentListContainer = document.createElement("div");
+      studentListContainer.setAttribute("class","mb-0 grow rounded-t-md md:h-0 md:overflow-y-auto md:overflow-x-hidden")
+      const studentList = document.createElement("ul");
+      studentList.setAttribute("class","grid gap-1 p-[1px] md:pb-4");
+      studentListContainer.appendChild(studentList);
+studentList.textContent= JSON.stringify(class_info["classroom_students"]);
+
+      
       new_student.appendChild(studentHeader);
+      new_student.appendChild(studentListContainer)
 // contact   
       const new_contact = document.createElement("div");
       new_contact.className = "space-y-2";
