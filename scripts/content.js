@@ -224,7 +224,39 @@ async function displayInfo(display_element) {
       const studentList = document.createElement("ul");
       studentList.setAttribute("class","grid gap-1 p-[1px] md:pb-4");
       studentListContainer.appendChild(studentList);
-studentList.textContent= JSON.stringify(class_info["classroom_students"]);
+      const classroom_students = class_info["classroom_students"];
+      for (let i = 0; i < classroom_students.length; i++) {
+        let studentLi = document.createElement('li');
+        studentLi.setAttribute("class", "skc-interactive skc-card skc-card--outlined skc-card--column cursor-pointer !border-0 hover:m-[-1px] hover:!border-1 focus:m-[-1px] focus:!border-1");
+        studentLi.setAttribute("type", 'button');
+          const skcCardHeader = document.createElement("div");
+          skcCardHeader.setAttribute("class", "skc-card-header [&_h3]:!leading-none [&_h3]:my-1")
+          studentLi.appendChild(skcCardHeader);
+            const skcCardHeaderAvatar = document.createElement("div");
+            skcCardHeaderAvatar.setAttribute("class", "skc-card-header__avatar");
+            skcCardHeader.appendChild(skcCardHeaderAvatar);
+                const skcCardHeaderAvatarInner = document.createElement("div");
+                skcCardHeaderAvatarInner.setAttribute("class", "skc-interactive skc-interactive--no-state-layer skc-interactive--no-ripple contents");
+                skcCardHeaderAvatar.appendChild(skcCardHeaderAvatarInner);
+                  const skcCardHeaderAvatarImageContainer = document.createElement("div");
+                  skcCardHeaderAvatarImageContainer.setAttribute("class", "skc-avatar relative  aspect-square");
+                  skcCardHeaderAvatarInner.appendChild(skcCardHeaderAvatarImageContainer);
+                    const skcCardHeaderAvatarImage = document.createElement("img");
+                    const studentImageUrl= classroom_students[i].students.people.profile;
+                    skcCardHeaderAvatarImage.src =  `https://www.mysk.school/_next/image?url=${studentImageUrl}&w=96&q=75`;
+                    skcCardHeaderAvatarImage.srcset = `https://www.mysk.school/_next/image?url=${studentImageUrl}&w=48&q=75 1x, /_next/image?url=${studentImageUrl}&w=96&q=75 2x`;
+                    skcCardHeaderAvatarImage.alt = '';
+                    skcCardHeaderAvatarImage.loading = 'lazy';
+                    skcCardHeaderAvatarImage.width = 48;
+                    skcCardHeaderAvatarImage.height = 48;
+                    skcCardHeaderAvatarImage.decoding = 'async';
+                    skcCardHeaderAvatarImage.dataset.nimg = '1';
+                    skcCardHeaderAvatarImage.style.cssText = 'color: transparent;';
+                    skcCardHeaderAvatarImageContainer.appendChild(skcCardHeaderAvatarImage)
+            const skcCardHeaderContent = document.createElement("div")
+          studentList.appendChild(studentLi);
+      }
+
 
       
       new_student.appendChild(studentHeader);
