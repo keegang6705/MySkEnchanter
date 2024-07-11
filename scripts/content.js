@@ -131,18 +131,32 @@ window.addEventListener(
 
 async function getRoomNumber() {
   const promise = new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const roomNumberElement = document.querySelector("h2");
-      if (roomNumberElement) {
-        const roomNumberText = roomNumberElement.textContent;
-        resolve(roomNumberText.slice(2, 5));
-      } else {
-        reject(new Error("<h2> element not found"));
-      }
-    }, 500);
+    const targetDiv = document.querySelector(".relative");
+
+    if (targetDiv) {
+      const observer = new MutationObserver((mutations) => {
+        const hasChildren = mutations[0].addedNodes.length > 0;
+        if (hasChildren) {
+          const roomNumberElement = targetDiv.querySelector("h2");
+          if (roomNumberElement) {
+            const roomNumberText = roomNumberElement.textContent;
+            resolve(roomNumberText.slice(2, 5));
+            observer.disconnect(); // Stop observing after finding the element
+          } else {
+            reject(new Error("<h2> element not found inside target div"));
+          }
+        }
+      });
+
+      observer.observe(targetDiv, { childList: true }); // Observe for child node additions
+    } else {
+      reject(new Error("Target div element not found"));
+    }
   });
+
   return await promise;
 }
+
 
 async function isMyRoom() {
   const promise = new Promise((resolve, reject) => {
@@ -184,7 +198,11 @@ async function displayInfo(display_element) {
 
       const studentSpan = document.createElement("span");
       studentSpan.classList.add("skc-text", "skc-text--title-medium", "grow");
-      studentSpan.textContent = "นักเรียน";
+      if (document.documentElement.lang == "th"){
+        studentSpan.textContent = "นักเรียน";
+      }else{
+        studentSpan.textContent = "Students";
+      };
 
       const button = document.createElement("button");
       button.type = "button";
@@ -206,7 +224,12 @@ async function displayInfo(display_element) {
 
       const buttonLabel = document.createElement("span");
       buttonLabel.classList.add("skc-button__label");
-      buttonLabel.textContent = "บันทึกทั้งหมด";
+      if (document.documentElement.lang == "th"){
+        buttonLabel.textContent = "บันทึกทั้งหมด";
+      }else{
+        buttonLabel.textContent = "Save all";
+      };
+      
 
       const ripple = document.createElement("span");
       ripple.classList.add("skc-interactive__ripple");
@@ -241,8 +264,9 @@ async function displayInfo(display_element) {
                   const skcCardHeaderAvatarImageContainer = document.createElement("div");
                   skcCardHeaderAvatarImageContainer.setAttribute("class", "skc-avatar relative  aspect-square");
                   skcCardHeaderAvatarInner.appendChild(skcCardHeaderAvatarImageContainer);
+                  const studentImageUrl= classroom_students[i].students.people.profile;
+                  if (studentImageUrl){
                     const skcCardHeaderAvatarImage = document.createElement("img");
-                    const studentImageUrl= classroom_students[i].students.people.profile;
                     skcCardHeaderAvatarImage.src =  `https://www.mysk.school/_next/image?url=${studentImageUrl}&w=96&q=75`;
                     skcCardHeaderAvatarImage.srcset = `https://www.mysk.school/_next/image?url=${studentImageUrl}&w=48&q=75 1x, /_next/image?url=${studentImageUrl}&w=96&q=75 2x`;
                     skcCardHeaderAvatarImage.alt = '';
@@ -252,7 +276,22 @@ async function displayInfo(display_element) {
                     skcCardHeaderAvatarImage.decoding = 'async';
                     skcCardHeaderAvatarImage.dataset.nimg = '1';
                     skcCardHeaderAvatarImage.style.cssText = 'color: transparent;';
-                    skcCardHeaderAvatarImageContainer.appendChild(skcCardHeaderAvatarImage)
+                    skcCardHeaderAvatarImageContainer.appendChild(skcCardHeaderAvatarImage);
+                  } else {
+                    const skcCardHeaderAvatarReserved = document.createElement("div");
+                    skcCardHeaderAvatarReserved.setAttribute("class", "skc-avatar relative  aspect-square");
+                    skcCardHeaderAvatarImageContainer.appendChild(skcCardHeaderAvatarReserved)
+                    const skcCardHeaderAvatarReservedInner = document.createElement("span");
+                    skcCardHeaderAvatarReservedInner.setAttribute("class", "skc-avatar__initials");
+                    if (document.documentElement.lang == "th"){
+                      skcCardHeaderAvatarReservedInner.textContent = classroom_students[i].students.people.first_name_th.slice(0,1)
+                    }else{
+                      skcCardHeaderAvatarReservedInner.textContent = classroom_students[i].students.people.first_name_en.slice(0,1)+classroom_students[i].students.people.last_name_en.slice(0,1)
+                    };
+                    
+                    skcCardHeaderAvatarReserved.appendChild(skcCardHeaderAvatarReservedInner)
+                  }
+                    
             const skcCardHeaderContent = document.createElement("div")
           studentList.appendChild(studentLi);
       }
@@ -269,7 +308,12 @@ async function displayInfo(display_element) {
         "class",
         "skc-text skc-text--title-medium rounded-md bg-surface px-3 py-2"
       );
-      headingElement.textContent = "ช่องทางการติดต่อ";
+      if (document.documentElement.lang == "th"){
+        headingElement.textContent = "ช่องทางการติดต่อ";
+      }else{
+        headingElement.textContent = "Contacts";
+      };
+      
 
       const warningElement = document.createElement("div");
       warningElement.setAttribute("class","mx-4 overflow-hidden rounded-xl border-1 border-outline-variant bg-surface-container sm:mx-0 grid grid-cols-[1.25rem,1fr] items-center gap-2 px-2.5 py-2 text-on-surface *:first:text-on-surface-variant !border-0 !bg-error-container *:!text-on-error-container" );
@@ -283,7 +327,12 @@ async function displayInfo(display_element) {
       warningElement.appendChild(warningElementIcon)
       const warningElementText = document.createElement("span");
       warningElementText.setAttribute("class", "skc-text skc-text--body-medium")
-      warningElementText.textContent = "ถูกปิดใช้งานเนื่องจากความเป็นส่วนตัว";
+      if (document.documentElement.lang == "th"){
+        warningElementText.textContent = "ถูกปิดใช้งานเนื่องจากความเป็นส่วนตัว";
+      }else{
+        warningElementText.textContent = "disabled due to privacy";
+      };
+
       warningElement.appendChild(warningElementText)
 
       new_contact.appendChild(headingElement);
