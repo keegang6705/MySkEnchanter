@@ -1,9 +1,10 @@
 {
     "name": "MySkEnchannter",
-    "version": "1.9",
+    "version": "1.11",
     "description": "upgrade mysk to epic website",
     "manifest_version": 3,
     "permissions": ["activeTab","tabs", "storage", "scripting"],
+    "host_permissions": ["https://www.mysk.school/*"],
    "icons": {
        "512": "/image/icon2-512x512.png"
        },
@@ -16,6 +17,13 @@
           "js": ["scripts/content.js"],
           "matches": [
             "https://www.mysk.school/*"
+          ]
+        },
+        {
+          "js": ["scripts/classes.js"],
+          "matches": [
+            "https://www.mysk.school/classes?ske=true*",
+            "https://www.mysk.school/en-US/classes?ske=true*"
           ]
         }
       ],
