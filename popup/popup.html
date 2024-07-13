@@ -1,11 +1,146 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8" />
-  <title></title>
-  <link rel="stylesheet" type="text/css" media="screen" href="popup.css" />
-</head>
-<body>
-   <script src="popup.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <link
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="popup.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="scroll"
+    style="
+      width: 300px;
+      height: auto;
+      color: #fff;
+      background-color: #333;
+      border-radius: 30px;
+      font-family: prompt;
+    "
+  >
+    <button
+      class="button"
+      id="btn-settings"
+      style="
+        color: #ffffff;
+        background-color: transparent;
+        font-size: 16px;
+        border-radius: 100px;
+        width: 100%;
+        border-style: solid;
+        border-color: #fff;
+        border-width: 2px;
+        display: inline-block;
+        margin-bottom: 10px;
+        margin-top: 5px;
+      "
+    >
+      การตั้งค่า
+    </button>
+    <div
+      class="menu-container scroll"
+      id="settings-container"
+      style="
+        z-index: 1;
+        position: fixed;
+        display: none;
+        width: 100%;
+        height: 100%;
+        background-color: #333;
+        color: #fff;
+      "
+    >
+    <div class="container" id="setting-container" style="font-size: 16px;">
+
+
+      <div class="setting" id="setting1" >
+        <span>ตรวจจับการอัพเดท</span>
+        <label class="switch float-right">
+          <input type="checkbox" id="setting1-state" checked="true" disabled>
+            <span class="slider round"></span>
+        </label>       
+      </div>
+
+
+
+      <div class="text-center">
+        <h4>รายชื่อผู้สนับสนุน</h4>
+      </div>
+
+      <div class="text-center">
+        <span>หากคุณต้องการจะสนับสนุนเรา คลิ๊กปุ่มสนับสนุนเรา</span>
+      </div>
+      <div class="text-center">
+        <span>และส่งหลักฐานการโอนเงิน พร้อมกับชื่อของคุณมาทางอีเมล</span>
+      </div>
+
+
+    </div>
+    
+    </div>
+    <button
+      class="button"
+      id="btn-send-email"
+      style="
+        color: #ffffff;
+        background-color: transparent;
+        font-size: 16px;
+        border-radius: 100px;
+        width: 49%;
+        border-style: solid;
+        border-color: #ff5555;
+        border-width: 2px;
+        display: inline-block;
+      "
+    >
+      แจ้งปัญหา
+    </button>
+
+    <button
+      class="button"
+      id="btn-donate"
+      style="
+        color: #ffffff;
+        background-color: transparent;
+        font-size: 16px;
+        border-radius: 100px;
+        width: 49%;
+        border-style: solid;
+        border-color: hsl(120, 100%, 68%);
+        border-width: 2px;
+        display: inline-block;
+      "
+    >
+      สนับสนุนเรา
+    </button>
+
+    <div class="container mt-5">
+      <h5 class="modal-title mb-4 text-center">MySkEnchanter</h5>
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div
+            class="modal-content text-center"
+            style="
+              margin-bottom: 25px;
+              background-color: transparent;
+              border-color: transparent;
+            "
+          >
+            
+          </div>
+          <div id="container" class="text-center"></div>
+          <p></p>
+          <div id="container2" class="text-center"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/scripts/version.js"></script>
+  <script src="popup.js"></script>
 </html>
