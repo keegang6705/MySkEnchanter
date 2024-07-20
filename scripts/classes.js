@@ -297,9 +297,9 @@ async function displayInfo(display_element) {
               const skcCardHeaderTitle = document.createElement("h3")
               skcCardHeaderTitle.setAttribute("class", "skc-card-header__title")
               if (document.documentElement.lang == "th"){
-                skcCardHeaderTitle.textContent= classroom_students[i].students.people.first_name_th + classroom_students[i].students.people.last_name_th
+                skcCardHeaderTitle.textContent= classroom_students[i].students.people.first_name_th +" "+ classroom_students[i].students.people.last_name_th
               }else{
-                skcCardHeaderTitle.textContent= classroom_students[i].students.people.first_name_en + classroom_students[i].students.people.last_name_en
+                skcCardHeaderTitle.textContent= classroom_students[i].students.people.first_name_en +" "+ classroom_students[i].students.people.last_name_en
               };
               skcCardHeaderContent.appendChild(skcCardHeaderTitle)
               const skcCardHeaderSubTitle = document.createElement("span")

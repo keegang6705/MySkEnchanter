@@ -1,7 +1,7 @@
 {
     "name": "MySkEnchanter",
-    "version": "1.12",
-    "description": "upgrade MySk and add some features",
+    "version": "1.13",
+    "description": "upgrade MySK and add some features",
     "manifest_version": 3,
     "permissions": ["activeTab","tabs", "storage", "scripting"],
     "host_permissions": ["https://www.mysk.school/*"],
