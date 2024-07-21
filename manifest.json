@@ -1,6 +1,6 @@
 {
     "name": "MySkEnchanter",
-    "version": "1.13",
+    "version": "1.14",
     "description": "upgrade MySK and add some features",
     "manifest_version": 3,
     "permissions": ["activeTab","tabs", "storage", "scripting"],

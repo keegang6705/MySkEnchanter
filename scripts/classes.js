@@ -1,12 +1,19 @@
 console.log("MySkEnchanter/scripts/classes:LOADED");
-const api_key =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrcXFlcGJvZHFqaGl3ZmpjdnhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTA3ODQ3NDQsImV4cCI6MTk2NjM2MDc0NH0.AuMiPwZfjapD_EW8ZyEWq9y6z3JqLC_rO3V4Bw7K300";
 headers = {
-  Authorization: `Bearer ${api_key}`,
+  Authorization: `Bearer X`,
   "User-Agent":
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
   "X-Client-Info": "@supabase/auth-helpers-nextjs@0.10.0",
 };
+async function getKey() {
+  const res = await fetch(
+    "https://www.mysk.school/_next/static/chunks/pages/_app-cbd22d5fc12a8ae7.js"
+  );
+  const text = await res.text();
+  const key = text.slice(927, 1135);
+  return key;
+};
+
 async function loadJson() {
   const response = await fetch(
     "https://raw.githubusercontent.com/keegang6705/MySkEnchanter/master/source/id.json"
@@ -17,7 +24,7 @@ async function loadJson() {
 
 async function getClassroomInfo(classroom_id, extension = null) {
   const url = extension
-    ? `https://ykqqepbodqjhiwfjcvxe.supabase.co/rest/v1/classrooms?select=${extension}&id=${classroom_id}&limit=1&order=id.asc&apikey=${api_key}`
+    ? `https://ykqqepbodqjhiwfjcvxe.supabase.co/rest/v1/classrooms?select=${extension}&id=${classroom_id}&limit=1&order=id.asc&apikey=${await getKey()}`
     : `https://ykqqepbodqjhiwfjcvxe.supabase.co/rest/v1/classrooms?select=number,classroom_students(class_no)&classroom_students.order=class_no.asc&id=${classroom_id}&limit=1&order=id.asc&apikey=${api_key}`;
   const response = await fetch(url);
   if (response) {
