@@ -1,23 +1,13 @@
 console.log("MySkEnchanter/scripts/classes:LOADED");
-headers = {
-  Authorization: `Bearer X`,
-  "User-Agent":
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
-  "X-Client-Info": "@supabase/auth-helpers-nextjs@0.10.0",
-};
 async function getKey() {
-  const res = await fetch(
-    "https://www.mysk.school/_next/static/chunks/pages/_app-cbd22d5fc12a8ae7.js"
-  );
+  const res = await fetch("https://www.mysk.school/_next/static/chunks/pages/_app-cbd22d5fc12a8ae7.js");
   const text = await res.text();
   const key = text.slice(927, 1135);
   return key;
 };
 
 async function loadJson() {
-  const response = await fetch(
-    "https://raw.githubusercontent.com/keegang6705/MySkEnchanter/master/source/id.json"
-  );
+  const response = await fetch("https://raw.githubusercontent.com/keegang6705/MySkEnchanter/master/source/id.json");
   const response_json = await response.json();
   return response_json;
 }
@@ -25,7 +15,7 @@ async function loadJson() {
 async function getClassroomInfo(classroom_id, extension = null) {
   const url = extension
     ? `https://ykqqepbodqjhiwfjcvxe.supabase.co/rest/v1/classrooms?select=${extension}&id=${classroom_id}&limit=1&order=id.asc&apikey=${await getKey()}`
-    : `https://ykqqepbodqjhiwfjcvxe.supabase.co/rest/v1/classrooms?select=number,classroom_students(class_no)&classroom_students.order=class_no.asc&id=${classroom_id}&limit=1&order=id.asc&apikey=${api_key}`;
+    : `https://ykqqepbodqjhiwfjcvxe.supabase.co/rest/v1/classrooms?select=number,classroom_students(class_no)&classroom_students.order=class_no.asc&id=${classroom_id}&limit=1&order=id.asc&apikey=${await getKey()}`;
   const response = await fetch(url);
   if (response) {
     data = await response.json();
@@ -139,7 +129,6 @@ window.addEventListener(
 async function getRoomNumber() {
   const promise = new Promise((resolve, reject) => {
     const targetDiv = document.querySelector(".relative");
-
     if (targetDiv) {
       const observer = new MutationObserver((mutations) => {
         const hasChildren = mutations[0].addedNodes.length > 0;
@@ -295,7 +284,6 @@ async function displayInfo(display_element) {
                   }else{
                     skcCardHeaderAvatarReservedInner.textContent = classroom_students[i].students.people.first_name_en.slice(0,1)+classroom_students[i].students.people.last_name_en.slice(0,1)
                   };
-                  
                   skcCardHeaderAvatarReserved.appendChild(skcCardHeaderAvatarReservedInner)
                 }
             const skcCardHeaderContent = document.createElement("div")
@@ -319,9 +307,7 @@ async function displayInfo(display_element) {
               skcCardHeaderContent.appendChild(skcCardHeaderSubTitle)
           studentList.appendChild(studentLi);
       }
-
-
-      
+    
       new_student.appendChild(studentHeader);
       new_student.appendChild(studentListContainer)
 // contact   
@@ -338,7 +324,6 @@ async function displayInfo(display_element) {
         headingElement.textContent = "Contacts";
       };
       
-
       const warningElement = document.createElement("div");
       warningElement.setAttribute("class","mx-4 overflow-hidden rounded-xl border-1 border-outline-variant bg-surface-container sm:mx-0 grid grid-cols-[1.25rem,1fr] items-center gap-2 px-2.5 py-2 text-on-surface *:first:text-on-surface-variant !border-0 !bg-error-container *:!text-on-error-container" );
       warningElement.style.cssText="border-radius: 28px; opacity: 1";
