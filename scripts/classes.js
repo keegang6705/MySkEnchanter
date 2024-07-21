@@ -15,7 +15,7 @@ async function loadJson() {
 async function getClassroomInfo(classroom_id, extension = null) {
   const url = extension
     ? `https://ykqqepbodqjhiwfjcvxe.supabase.co/rest/v1/classrooms?select=${extension}&id=${classroom_id}&limit=1&order=id.asc&apikey=${await getKey()}`
-    : `https://ykqqepbodqjhiwfjcvxe.supabase.co/rest/v1/classrooms?select=number,classroom_students(class_no)&classroom_students.order=class_no.asc&id=${classroom_id}&limit=1&order=id.asc&apikey=${api_key}`;
+    : `https://ykqqepbodqjhiwfjcvxe.supabase.co/rest/v1/classrooms?select=number,classroom_students(class_no)&classroom_students.order=class_no.asc&id=${classroom_id}&limit=1&order=id.asc&apikey=${await getKey()}`;
   const response = await fetch(url);
   if (response) {
     data = await response.json();
