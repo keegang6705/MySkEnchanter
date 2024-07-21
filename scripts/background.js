@@ -1,4 +1,5 @@
 console.log("MySkEnchanter/scripts/background.js:LOADED")
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if(changeInfo.status == "complete"){
         if (tab.url === "https://www.mysk.school/classes" || tab.url === "https://www.mysk.school/en-US/classes") {

@@ -1,4 +1,5 @@
 console.log("MySkEnchanter/scripts/classes:LOADED");
+
 async function getKey() {
   const res = await fetch("https://www.mysk.school/_next/static/chunks/pages/_app-cbd22d5fc12a8ae7.js");
   const text = await res.text();

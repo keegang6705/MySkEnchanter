@@ -1,4 +1,5 @@
 console.log("BemisEditor/script/version.js:LOADED");
+
 async function check(){
     try {
       const response = await fetch('/manifest.json');
