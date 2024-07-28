@@ -46,6 +46,11 @@ async function listener() {
   }
 }
 
+async function constructAndOpenUrl(firstName, lastName) {
+  const search_url = `https://www.mysk.school/search/students/results?full_name=${encodeURIComponent(firstName)}%20${encodeURIComponent(lastName)}`;
+  window.open(search_url);
+}
+
 window.addEventListener(
   "load",
   function load(e) {
@@ -262,15 +267,11 @@ async function displayInfo(display_element) {
           if (document.documentElement.lang == "th"){
             const student_first_name = classroom_students[i].students.people.first_name_th;
             const student_last_name = classroom_students[i].students.people.last_name_th;
-            window.open({
-              url: `https://www.mysk.school/search/students/results?full_name=${encodeURIComponent(student_first_name)}%20${encodeURIComponent(student_last_name)}`
-             });
+            constructAndOpenUrl(student_first_name, student_last_name)
           }else{
             const student_first_name = classroom_students[i].students.people.first_name_en;
             const student_last_name = classroom_students[i].students.people.last_name_en;
-            window.open({
-              url: `https://www.mysk.school/search/students/results?full_name=${encodeURIComponent(student_first_name)}%20${encodeURIComponent(student_last_name)}`
-             });
+            constructAndOpenUrl(student_first_name, student_last_name)
           };
 
       });
