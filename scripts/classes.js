@@ -46,8 +46,8 @@ async function listener() {
   }
 }
 
-async function constructAndOpenUrl(firstName, lastName,is_en) {
-  const search_url = `https://www.mysk.school/${is_en}search/students/results?full_name=${encodeURIComponent(firstName)}%20${encodeURIComponent(lastName)}`;
+async function constructAndOpenUrl(firstName, lastName,lang) {
+  const search_url = `https://www.mysk.school/${lang}search/students/results?full_name=${encodeURIComponent(firstName)}%20${encodeURIComponent(lastName)}`;
   window.open(search_url);
 }
 
