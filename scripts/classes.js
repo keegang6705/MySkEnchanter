@@ -263,13 +263,13 @@ async function displayInfo(display_element) {
             const student_first_name = classroom_students[i].students.people.first_name_th;
             const student_last_name = classroom_students[i].students.people.last_name_th;
             window.open({
-              url: `https://www.mysk.school/search/students/results?full_name=${student_first_name} ${student_last_name}`
+              url: `https://www.mysk.school/search/students/results?full_name=${encodeURIComponent(student_first_name)}%20${encodeURIComponent(student_last_name)}`
              });
           }else{
             const student_first_name = classroom_students[i].students.people.first_name_en;
             const student_last_name = classroom_students[i].students.people.last_name_en;
             window.open({
-              url: `https://www.mysk.school/search/students/results?full_name=${student_first_name} ${student_last_name}`
+              url: `https://www.mysk.school/search/students/results?full_name=${encodeURIComponent(student_first_name)}%20${encodeURIComponent(student_last_name)}`
              });
           };
 
