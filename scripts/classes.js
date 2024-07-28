@@ -226,7 +226,16 @@ async function displayInfo(display_element) {
       }else{
         buttonLabel.textContent = "Save all";
       };
-      
+      buttonLabel.addEventListener("click", function () {
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(class_info));
+        const downloadAnchorNode = document.createElement('a');
+        downloadAnchorNode.setAttribute("href",     dataStr);
+        downloadAnchorNode.setAttribute("download",   
+       "class_info.json");
+        document.body.appendChild(downloadAnchorNode); // required for firefox
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove(); 
+    });
 
       const ripple = document.createElement("span");
       ripple.classList.add("skc-interactive__ripple");
@@ -249,6 +258,22 @@ async function displayInfo(display_element) {
         let studentLi = document.createElement('li');
         studentLi.setAttribute("class", "skc-interactive skc-card skc-card--outlined skc-card--column cursor-pointer !border-0 hover:m-[-1px] hover:!border-1 focus:m-[-1px] focus:!border-1");
         studentLi.setAttribute("type", 'button');
+        studentLi.addEventListener("click", function () {
+          if (document.documentElement.lang == "th"){
+            const student_first_name = classroom_students[i].students.people.first_name_th;
+            const student_last_name = classroom_students[i].students.people.last_name_th;
+            window.open({
+              url: `https://www.mysk.school/search/students/results?full_name=${student_first_name} ${student_last_name}`
+             });
+          }else{
+            const student_first_name = classroom_students[i].students.people.first_name_en;
+            const student_last_name = classroom_students[i].students.people.last_name_en;
+            window.open({
+              url: `https://www.mysk.school/search/students/results?full_name=${student_first_name} ${student_last_name}`
+             });
+          };
+
+      });
           const skcCardHeader = document.createElement("div");
           skcCardHeader.setAttribute("class", "skc-card-header [&_h3]:!leading-none [&_h3]:my-1")
           studentLi.appendChild(skcCardHeader);
