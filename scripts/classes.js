@@ -1,4 +1,4 @@
-console.log("MySkEnchanter/scripts/classes:LOADED");
+console.log("MySkEnchanter/scripts/classes.js:LOADED");
 
 async function getKey() {
   const res = await fetch("https://www.mysk.school/_next/static/chunks/pages/_app-cbd22d5fc12a8ae7.js");
@@ -20,11 +20,11 @@ async function getClassroomInfo(classroom_id, extension = null) {
   const response = await fetch(url);
   if (response) {
     data = await response.json();
-    console.log(`MySkEnchanter/scripts/classes:FETCH ${url}`);
+    console.log(`MySkEnchanter/scripts/classes.js:FETCH ${url}`);
     return (await data) ? data[0] : "ERR";
   } else {
     console.error(
-      `MySkEnchanter/scripts/classes:ERROR retrieving data for ${classroom_id}`
+      `MySkEnchanter/scripts/classes.js:ERROR retrieving data for ${classroom_id}`
     );
     return "ERR";
   }
@@ -39,7 +39,7 @@ async function listener() {
         }
       });
     });
-    console.log("MySkEnchanter/scripts/classes: INFO Obeserving main");
+    console.log("MySkEnchanter/scripts/classes.js: INFO Obeserving main");
     observer.observe(targetElement, { childList: true, attributes: true });
   } else {
     console.log("Target element not found!");
