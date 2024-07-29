@@ -185,251 +185,266 @@ async function displayInfo() {
   console.log(class_info);
   if (await isMyRoom()) {
   } else {
-    const card_parent = document.querySelector('.flex.grow.flex-col.gap-5');
-    simulateProgress(card_parent, 100, 1, ()=>{})
-    const card_body = document.querySelector("section.flex-col-reverse");
-    // student
-    const new_student = document.createElement("section");
-    new_student.className = "flex flex-col gap-2";
-    const studentHeader = document.createElement("div");
-    studentHeader.classList.add(
-      "flex",
-      "flex-row",
-      "items-center",
-      "rounded-md",
-      "bg-surface",
-      "px-3",
-      "py-2"
-    );
-
-    const studentSpan = document.createElement("span");
-    studentSpan.classList.add("skc-text", "skc-text--title-medium", "grow");
-    if (document.documentElement.lang == "th") {
-      studentSpan.textContent = "นักเรียน";
-    } else {
-      studentSpan.textContent = "Students";
-    }
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.classList.add(
-      "skc-interactive",
-      "skc-button",
-      "skc-button--text",
-      "!-m-2"
-    );
-    button.setAttribute("aria-disabled", "false");
-
-    const buttonIconDiv = document.createElement("div");
-    buttonIconDiv.classList.add("skc-button__icon");
-
-    const studentDownloadIcon = document.createElement("i");
-    studentDownloadIcon.classList.add("skc-icon");
-    studentDownloadIcon.setAttribute("translate", "no");
-    studentDownloadIcon.textContent = "download";
-
-    const buttonLabel = document.createElement("span");
-    buttonLabel.classList.add("skc-button__label");
-    if (document.documentElement.lang == "th") {
-      buttonLabel.textContent = "บันทึกทั้งหมด";
-    } else {
-      buttonLabel.textContent = "Save all";
-    }
-    buttonLabel.addEventListener("click", function () {
-      const dataStr =
-        "data:text/json;charset=utf-8," +
-        encodeURIComponent(JSON.stringify(class_info));
-      const downloadAnchorNode = document.createElement("a");
-      downloadAnchorNode.setAttribute("href", dataStr);
-      downloadAnchorNode.setAttribute("download", "class_info.json");
-      document.body.appendChild(downloadAnchorNode); // required for firefox
-      downloadAnchorNode.click();
-      downloadAnchorNode.remove();
-    });
-
-    const ripple = document.createElement("span");
-    ripple.classList.add("skc-interactive__ripple");
-    ripple.style.cssText =
-      "top: 0px; left: 0px; width: 130px; height: 130px; opacity: 0.36; transform: scale(0) translateZ(0px);";
-    buttonIconDiv.appendChild(studentDownloadIcon);
-    button.appendChild(buttonIconDiv);
-    button.appendChild(buttonLabel);
-    studentHeader.appendChild(studentSpan);
-    studentHeader.appendChild(button);
-    studentHeader.appendChild(ripple);
-    //list student
-    const studentListContainer = document.createElement("div");
-    studentListContainer.setAttribute(
-      "class",
-      "mb-0 grow rounded-t-md md:h-0 md:overflow-y-auto md:overflow-x-hidden"
-    );
-    const studentList = document.createElement("ul");
-    studentList.setAttribute("class", "grid gap-1 p-[1px] md:pb-4");
-    studentListContainer.appendChild(studentList);
-    const classroom_students = class_info["classroom_students"];
-    for (let i = 0; i < classroom_students.length; i++) {
-      let studentLi = document.createElement("li");
-      studentLi.setAttribute(
-        "class",
-        "skc-interactive skc-card skc-card--outlined skc-card--column cursor-pointer !border-0 hover:m-[-1px] hover:!border-1 focus:m-[-1px] focus:!border-1"
+    const card_parent = document.querySelector(".flex.grow.flex-col.gap-5");
+    simulateProgress(card_parent, 100, 1, () => {});
+    setTimeout(() => {
+      const card_body = document.querySelector("section.flex-col-reverse");
+      // student
+      const new_student = document.createElement("section");
+      new_student.className = "flex flex-col gap-2";
+      const studentHeader = document.createElement("div");
+      studentHeader.classList.add(
+        "flex",
+        "flex-row",
+        "items-center",
+        "rounded-md",
+        "bg-surface",
+        "px-3",
+        "py-2"
       );
-      studentLi.setAttribute("type", "button");
-      studentLi.addEventListener("click", function () {
-        if (document.documentElement.lang == "th") {
-          const student_first_name =
-            classroom_students[i].students.people.first_name_th;
-          const student_last_name =
-            classroom_students[i].students.people.last_name_th;
-          constructAndOpenUrl(student_first_name, student_last_name, "");
-        } else {
-          const student_first_name =
-            classroom_students[i].students.people.first_name_en;
-          const student_last_name =
-            classroom_students[i].students.people.last_name_en;
-          constructAndOpenUrl(student_first_name, student_last_name, "en-US/");
-        }
-      });
-      const skcCardHeader = document.createElement("div");
-      skcCardHeader.setAttribute(
-        "class",
-        "skc-card-header [&_h3]:!leading-none [&_h3]:my-1"
-      );
-      studentLi.appendChild(skcCardHeader);
-      const skcCardHeaderAvatar = document.createElement("div");
-      skcCardHeaderAvatar.setAttribute("class", "skc-card-header__avatar");
-      skcCardHeader.appendChild(skcCardHeaderAvatar);
-      const skcCardHeaderAvatarInner = document.createElement("div");
-      skcCardHeaderAvatarInner.setAttribute(
-        "class",
-        "skc-interactive skc-interactive--no-state-layer skc-interactive--no-ripple contents"
-      );
-      skcCardHeaderAvatar.appendChild(skcCardHeaderAvatarInner);
-      const skcCardHeaderAvatarImageContainer = document.createElement("div");
-      skcCardHeaderAvatarImageContainer.setAttribute(
-        "class",
-        "skc-avatar relative  aspect-square"
-      );
-      skcCardHeaderAvatarInner.appendChild(skcCardHeaderAvatarImageContainer);
-      const studentImageUrl = classroom_students[i].students.people.profile;
-      if (studentImageUrl) {
-        const skcCardHeaderAvatarImage = document.createElement("img");
-        skcCardHeaderAvatarImage.src = `https://www.mysk.school/_next/image?url=${studentImageUrl}&w=96&q=75`;
-        skcCardHeaderAvatarImage.srcset = `https://www.mysk.school/_next/image?url=${studentImageUrl}&w=48&q=75 1x, /_next/image?url=${studentImageUrl}&w=96&q=75 2x`;
-        skcCardHeaderAvatarImage.alt = "";
-        skcCardHeaderAvatarImage.loading = "lazy";
-        skcCardHeaderAvatarImage.width = 48;
-        skcCardHeaderAvatarImage.height = 48;
-        skcCardHeaderAvatarImage.decoding = "async";
-        skcCardHeaderAvatarImage.dataset.nimg = "1";
-        skcCardHeaderAvatarImage.style.cssText = "color: transparent;";
-        skcCardHeaderAvatarImageContainer.appendChild(skcCardHeaderAvatarImage);
+
+      const studentSpan = document.createElement("span");
+      studentSpan.classList.add("skc-text", "skc-text--title-medium", "grow");
+      if (document.documentElement.lang == "th") {
+        studentSpan.textContent = "นักเรียน";
       } else {
-        const skcCardHeaderAvatarReserved = document.createElement("div");
-        skcCardHeaderAvatarReserved.setAttribute(
+        studentSpan.textContent = "Students";
+      }
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.classList.add(
+        "skc-interactive",
+        "skc-button",
+        "skc-button--text",
+        "!-m-2"
+      );
+      button.setAttribute("aria-disabled", "false");
+
+      const buttonIconDiv = document.createElement("div");
+      buttonIconDiv.classList.add("skc-button__icon");
+
+      const studentDownloadIcon = document.createElement("i");
+      studentDownloadIcon.classList.add("skc-icon");
+      studentDownloadIcon.setAttribute("translate", "no");
+      studentDownloadIcon.textContent = "download";
+
+      const buttonLabel = document.createElement("span");
+      buttonLabel.classList.add("skc-button__label");
+      if (document.documentElement.lang == "th") {
+        buttonLabel.textContent = "บันทึกทั้งหมด";
+      } else {
+        buttonLabel.textContent = "Save all";
+      }
+      buttonLabel.addEventListener("click", function () {
+        const dataStr =
+          "data:text/json;charset=utf-8," +
+          encodeURIComponent(JSON.stringify(class_info));
+        const downloadAnchorNode = document.createElement("a");
+        downloadAnchorNode.setAttribute("href", dataStr);
+        downloadAnchorNode.setAttribute("download", "class_info.json");
+        document.body.appendChild(downloadAnchorNode); // required for firefox
+        downloadAnchorNode.click();
+        downloadAnchorNode.remove();
+      });
+
+      const ripple = document.createElement("span");
+      ripple.classList.add("skc-interactive__ripple");
+      ripple.style.cssText =
+        "top: 0px; left: 0px; width: 130px; height: 130px; opacity: 0.36; transform: scale(0) translateZ(0px);";
+      buttonIconDiv.appendChild(studentDownloadIcon);
+      button.appendChild(buttonIconDiv);
+      button.appendChild(buttonLabel);
+      studentHeader.appendChild(studentSpan);
+      studentHeader.appendChild(button);
+      studentHeader.appendChild(ripple);
+      //list student
+      const studentListContainer = document.createElement("div");
+      studentListContainer.setAttribute(
+        "class",
+        "mb-0 grow rounded-t-md md:h-0 md:overflow-y-auto md:overflow-x-hidden"
+      );
+      const studentList = document.createElement("ul");
+      studentList.setAttribute("class", "grid gap-1 p-[1px] md:pb-4");
+      studentListContainer.appendChild(studentList);
+      const classroom_students = class_info["classroom_students"];
+      for (let i = 0; i < classroom_students.length; i++) {
+        let studentLi = document.createElement("li");
+        studentLi.setAttribute(
+          "class",
+          "skc-interactive skc-card skc-card--outlined skc-card--column cursor-pointer !border-0 hover:m-[-1px] hover:!border-1 focus:m-[-1px] focus:!border-1"
+        );
+        studentLi.setAttribute("type", "button");
+        studentLi.addEventListener("click", function () {
+          if (document.documentElement.lang == "th") {
+            const student_first_name =
+              classroom_students[i].students.people.first_name_th;
+            const student_last_name =
+              classroom_students[i].students.people.last_name_th;
+            constructAndOpenUrl(student_first_name, student_last_name, "");
+          } else {
+            const student_first_name =
+              classroom_students[i].students.people.first_name_en;
+            const student_last_name =
+              classroom_students[i].students.people.last_name_en;
+            constructAndOpenUrl(
+              student_first_name,
+              student_last_name,
+              "en-US/"
+            );
+          }
+        });
+        const skcCardHeader = document.createElement("div");
+        skcCardHeader.setAttribute(
+          "class",
+          "skc-card-header [&_h3]:!leading-none [&_h3]:my-1"
+        );
+        studentLi.appendChild(skcCardHeader);
+        const skcCardHeaderAvatar = document.createElement("div");
+        skcCardHeaderAvatar.setAttribute("class", "skc-card-header__avatar");
+        skcCardHeader.appendChild(skcCardHeaderAvatar);
+        const skcCardHeaderAvatarInner = document.createElement("div");
+        skcCardHeaderAvatarInner.setAttribute(
+          "class",
+          "skc-interactive skc-interactive--no-state-layer skc-interactive--no-ripple contents"
+        );
+        skcCardHeaderAvatar.appendChild(skcCardHeaderAvatarInner);
+        const skcCardHeaderAvatarImageContainer = document.createElement("div");
+        skcCardHeaderAvatarImageContainer.setAttribute(
           "class",
           "skc-avatar relative  aspect-square"
         );
-        skcCardHeaderAvatarImageContainer.appendChild(
-          skcCardHeaderAvatarReserved
-        );
-        const skcCardHeaderAvatarReservedInner = document.createElement("span");
-        skcCardHeaderAvatarReservedInner.setAttribute(
-          "class",
-          "skc-avatar__initials"
-        );
-        if (document.documentElement.lang == "th") {
-          skcCardHeaderAvatarReservedInner.textContent = classroom_students[
-            i
-          ].students.people.first_name_th.slice(0, 1);
+        skcCardHeaderAvatarInner.appendChild(skcCardHeaderAvatarImageContainer);
+        const studentImageUrl = classroom_students[i].students.people.profile;
+        if (studentImageUrl) {
+          const skcCardHeaderAvatarImage = document.createElement("img");
+          skcCardHeaderAvatarImage.src = `https://www.mysk.school/_next/image?url=${studentImageUrl}&w=96&q=75`;
+          skcCardHeaderAvatarImage.srcset = `https://www.mysk.school/_next/image?url=${studentImageUrl}&w=48&q=75 1x, /_next/image?url=${studentImageUrl}&w=96&q=75 2x`;
+          skcCardHeaderAvatarImage.alt = "";
+          skcCardHeaderAvatarImage.loading = "lazy";
+          skcCardHeaderAvatarImage.width = 48;
+          skcCardHeaderAvatarImage.height = 48;
+          skcCardHeaderAvatarImage.decoding = "async";
+          skcCardHeaderAvatarImage.dataset.nimg = "1";
+          skcCardHeaderAvatarImage.style.cssText = "color: transparent;";
+          skcCardHeaderAvatarImageContainer.appendChild(
+            skcCardHeaderAvatarImage
+          );
         } else {
-          skcCardHeaderAvatarReservedInner.textContent =
-            classroom_students[i].students.people.first_name_en.slice(0, 1) +
-            classroom_students[i].students.people.last_name_en.slice(0, 1);
+          const skcCardHeaderAvatarReserved = document.createElement("div");
+          skcCardHeaderAvatarReserved.setAttribute(
+            "class",
+            "skc-avatar relative  aspect-square"
+          );
+          skcCardHeaderAvatarImageContainer.appendChild(
+            skcCardHeaderAvatarReserved
+          );
+          const skcCardHeaderAvatarReservedInner =
+            document.createElement("span");
+          skcCardHeaderAvatarReservedInner.setAttribute(
+            "class",
+            "skc-avatar__initials"
+          );
+          if (document.documentElement.lang == "th") {
+            skcCardHeaderAvatarReservedInner.textContent = classroom_students[
+              i
+            ].students.people.first_name_th.slice(0, 1);
+          } else {
+            skcCardHeaderAvatarReservedInner.textContent =
+              classroom_students[i].students.people.first_name_en.slice(0, 1) +
+              classroom_students[i].students.people.last_name_en.slice(0, 1);
+          }
+          skcCardHeaderAvatarReserved.appendChild(
+            skcCardHeaderAvatarReservedInner
+          );
         }
-        skcCardHeaderAvatarReserved.appendChild(
-          skcCardHeaderAvatarReservedInner
+        const skcCardHeaderContent = document.createElement("div");
+        skcCardHeaderContent.setAttribute("class", "skc-card-header__content");
+        skcCardHeader.appendChild(skcCardHeaderContent);
+        const skcCardHeaderTitle = document.createElement("h3");
+        skcCardHeaderTitle.setAttribute("class", "skc-card-header__title");
+        if (document.documentElement.lang == "th") {
+          skcCardHeaderTitle.textContent =
+            classroom_students[i].students.people.first_name_th +
+            " " +
+            classroom_students[i].students.people.last_name_th;
+        } else {
+          skcCardHeaderTitle.textContent =
+            classroom_students[i].students.people.first_name_en +
+            " " +
+            classroom_students[i].students.people.last_name_en;
+        }
+        skcCardHeaderContent.appendChild(skcCardHeaderTitle);
+        const skcCardHeaderSubTitle = document.createElement("span");
+        if (document.documentElement.lang == "th") {
+          skcCardHeaderSubTitle.textContent =
+            "เลขที่ " +
+            classroom_students[i].class_no +
+            " • " +
+            classroom_students[i].students.people.nickname_th;
+        } else {
+          skcCardHeaderSubTitle.textContent =
+            "No. " +
+            classroom_students[i].class_no +
+            " • " +
+            classroom_students[i].students.people.nickname_en;
+        }
+        skcCardHeaderSubTitle.setAttribute(
+          "class",
+          "skc-card-header__subtitle"
         );
+        skcCardHeaderContent.appendChild(skcCardHeaderSubTitle);
+        studentList.appendChild(studentLi);
       }
-      const skcCardHeaderContent = document.createElement("div");
-      skcCardHeaderContent.setAttribute("class", "skc-card-header__content");
-      skcCardHeader.appendChild(skcCardHeaderContent);
-      const skcCardHeaderTitle = document.createElement("h3");
-      skcCardHeaderTitle.setAttribute("class", "skc-card-header__title");
+
+      new_student.appendChild(studentHeader);
+      new_student.appendChild(studentListContainer);
+      // contact
+      const new_contact = document.createElement("div");
+      new_contact.className = "space-y-2";
+      const headingElement = document.createElement("h3");
+      headingElement.setAttribute(
+        "class",
+        "skc-text skc-text--title-medium rounded-md bg-surface px-3 py-2"
+      );
       if (document.documentElement.lang == "th") {
-        skcCardHeaderTitle.textContent =
-          classroom_students[i].students.people.first_name_th +
-          " " +
-          classroom_students[i].students.people.last_name_th;
+        headingElement.textContent = "ช่องทางการติดต่อ";
       } else {
-        skcCardHeaderTitle.textContent =
-          classroom_students[i].students.people.first_name_en +
-          " " +
-          classroom_students[i].students.people.last_name_en;
+        headingElement.textContent = "Contacts";
       }
-      skcCardHeaderContent.appendChild(skcCardHeaderTitle);
-      const skcCardHeaderSubTitle = document.createElement("span");
+
+      const warningElement = document.createElement("div");
+      warningElement.setAttribute(
+        "class",
+        "mx-4 overflow-hidden rounded-xl border-1 border-outline-variant bg-surface-container sm:mx-0 grid grid-cols-[1.25rem,1fr] items-center gap-2 px-2.5 py-2 text-on-surface *:first:text-on-surface-variant !border-0 !bg-error-container *:!text-on-error-container"
+      );
+      warningElement.style.cssText = "border-radius: 28px; opacity: 1";
+      const warningElementIcon = document.createElement("i");
+      warningElementIcon.setAttribute("aria-hidden", "true");
+      warningElementIcon.setAttribute("class", "skc-icon");
+      warningElementIcon.setAttribute("translate", "no");
+      warningElementIcon.style.cssText =
+        "font-size: 1.25rem;font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;";
+      warningElementIcon.textContent = "warning";
+      warningElement.appendChild(warningElementIcon);
+      const warningElementText = document.createElement("span");
+      warningElementText.setAttribute(
+        "class",
+        "skc-text skc-text--body-medium"
+      );
       if (document.documentElement.lang == "th") {
-        skcCardHeaderSubTitle.textContent =
-          "เลขที่ " +
-          classroom_students[i].class_no +
-          " • " +
-          classroom_students[i].students.people.nickname_th;
+        warningElementText.textContent = "ถูกปิดใช้งานเนื่องจากความเป็นส่วนตัว";
       } else {
-        skcCardHeaderSubTitle.textContent =
-          "No. " +
-          classroom_students[i].class_no +
-          " • " +
-          classroom_students[i].students.people.nickname_en;
+        warningElementText.textContent = "disabled due to privacy";
       }
-      skcCardHeaderSubTitle.setAttribute("class", "skc-card-header__subtitle");
-      skcCardHeaderContent.appendChild(skcCardHeaderSubTitle);
-      studentList.appendChild(studentLi);
-    }
 
-    new_student.appendChild(studentHeader);
-    new_student.appendChild(studentListContainer);
-    // contact
-    const new_contact = document.createElement("div");
-    new_contact.className = "space-y-2";
-    const headingElement = document.createElement("h3");
-    headingElement.setAttribute(
-      "class",
-      "skc-text skc-text--title-medium rounded-md bg-surface px-3 py-2"
-    );
-    if (document.documentElement.lang == "th") {
-      headingElement.textContent = "ช่องทางการติดต่อ";
-    } else {
-      headingElement.textContent = "Contacts";
-    }
+      warningElement.appendChild(warningElementText);
 
-    const warningElement = document.createElement("div");
-    warningElement.setAttribute(
-      "class",
-      "mx-4 overflow-hidden rounded-xl border-1 border-outline-variant bg-surface-container sm:mx-0 grid grid-cols-[1.25rem,1fr] items-center gap-2 px-2.5 py-2 text-on-surface *:first:text-on-surface-variant !border-0 !bg-error-container *:!text-on-error-container"
-    );
-    warningElement.style.cssText = "border-radius: 28px; opacity: 1";
-    const warningElementIcon = document.createElement("i");
-    warningElementIcon.setAttribute("aria-hidden", "true");
-    warningElementIcon.setAttribute("class", "skc-icon");
-    warningElementIcon.setAttribute("translate", "no");
-    warningElementIcon.style.cssText =
-      "font-size: 1.25rem;font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;";
-    warningElementIcon.textContent = "warning";
-    warningElement.appendChild(warningElementIcon);
-    const warningElementText = document.createElement("span");
-    warningElementText.setAttribute("class", "skc-text skc-text--body-medium");
-    if (document.documentElement.lang == "th") {
-      warningElementText.textContent = "ถูกปิดใช้งานเนื่องจากความเป็นส่วนตัว";
-    } else {
-      warningElementText.textContent = "disabled due to privacy";
-    }
-
-    warningElement.appendChild(warningElementText);
-
-    new_contact.appendChild(headingElement);
-    new_contact.appendChild(warningElement);
-    //pack
-    card_body.appendChild(new_student);
-    card_body.appendChild(new_contact);
+      new_contact.appendChild(headingElement);
+      new_contact.appendChild(warningElement);
+      //pack
+      card_body.appendChild(new_student);
+      card_body.appendChild(new_contact);
+    }, 1000);
   }
 }
