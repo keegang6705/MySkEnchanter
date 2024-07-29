@@ -1,13 +1,14 @@
 {
     "name": "MySKEnchanter",
-    "version": "2.0",
+    "version": "2.1",
     "version_name":"2024.7.29-chrome",
     "description": "upgrade MySK and add some features",
     "manifest_version": 3,
     "permissions": ["activeTab","tabs", "storage", "scripting"],
     "host_permissions": ["https://www.mysk.school/*"],
    "icons": {
-       "512": "/image/icon2-512x512.png"
+       "48": "/image/favicon/favicon-48x48.png",
+       "512": "/image/favicon/favicon-152x152.png"
        },
     "action": {
         "default_popup": "/popup/popup.html",
