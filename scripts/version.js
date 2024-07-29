@@ -16,7 +16,7 @@ async function check(){
           updateButton();
         }
       }
-      document.getElementById("container").innerHTML = "เวอร์ชั่นปัจจุบัน:"+localManifest.version+" เวอร์ชั่นล่าสุด:"+remoteManifest.version;
+      document.getElementById("container").textContent = "เวอร์ชั่นปัจจุบัน:"+localManifest.version+" เวอร์ชั่นล่าสุด:"+remoteManifest.version;
     } catch (error) {
         alert('รับข้อมูลเวอร์ชั่นผิดพลาด \nโปรดเช็คอินเทอร์เน็ตของท่าน\n'+ error);
         alert("การใช้งานโดยไม่ตรวจสอบเวอร์ชั่นอาจสร้างความผิดพลาดได้")
