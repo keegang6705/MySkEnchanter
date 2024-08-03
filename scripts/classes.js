@@ -90,7 +90,7 @@ overflow: hidden;
 width: 0%;  
 height: 100%;
 background: linear-gradient(to right, purple,cyan); /* background: linear-gradient(to right, purple,cyan,blue,lime,yellow,orange,red) */;
-transition: width 1s ease;  
+transition: width 0.1s ease;  
 `;
 
   const text = document.createElement("p");
@@ -114,12 +114,12 @@ margin-top: 10px;
       clearInterval(intervalId);
       setTimeout(() => {
         overlay.style.opacity = 0;
-        overlay.style.transition = "opacity 0.5s ease-in-out";
+        overlay.style.transition = "opacity 0.25s ease-in-out";
         setTimeout(() => {
           root.removeChild(overlay);
-        }, 500);
+        }, 250);
         after();
-      }, 1000);
+      }, 250);
     }
   }, interval);
 }
@@ -445,6 +445,6 @@ async function displayInfo() {
       //pack
       card_body.appendChild(new_student);
       card_body.appendChild(new_contact);
-    }, 1000);
+    }, 250);
   }
 }

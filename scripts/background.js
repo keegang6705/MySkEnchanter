@@ -1,14 +1,12 @@
 console.log("MySkEnchanter/scripts/background.js:LOADED")
-const url_list = [{"path":"classes","parameter":""}]
+const url_list = [{"path":"classes","parameter":""},{"path":"results","parameter":""}]
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if(changeInfo.status == "loading" && tab.url.startsWith("https://www.mysk.school") ){
         for(let i = 0; i < url_list.length; i++){
-          let make_new_tab = true
           const current_url = url_list[i]["path"]
           const current_parameter = url_list[i]["parameter"]
           if (tab.url === `https://www.mysk.school/${current_url}` || tab.url === `https://www.mysk.school/en-US/${current_url}`) {
             chrome.tabs.remove(tabId);
-            make_new_tab = false
             if (tab.url === `https://www.mysk.school/${current_url}`){
               chrome.tabs.create({ url: `https://www.mysk.school/${current_url}?ske=true&ske_tab_index=${tab.index}${current_parameter}` });
             } else if (tab.url === `https://www.mysk.school/en-US/${current_url}`){
@@ -20,18 +18,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
             const decodedSearchParams = new URLSearchParams(url.searchParams);
             const tabIndex = decodedSearchParams.get("ske_tab_index");
             moveToFirstPosition(tabId,parseInt(tabIndex))
-            make_new_tab = false
             break
-          } else if (tab.url.includes("ske=false")) {
-            const url = new URL(tab.url);
-            const decodedSearchParams = new URLSearchParams(url.searchParams);
-            const tabIndex = decodedSearchParams.get("ske_tab_index");
-            moveToFirstPosition(tabId,parseInt(tabIndex))
-            make_new_tab = false
-            break
-          }
-          if(i+1 == url_list.length && make_new_tab){ chrome.tabs.remove(tabId);chrome.tabs.create({ url: `${tab.url}?ske=false&ske_tab_index=${tab.index}` });}
-        }
+          }}
     }
   });
   
