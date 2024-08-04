@@ -90,7 +90,7 @@ overflow: hidden;
 width: 0%;  
 height: 100%;
 background: linear-gradient(to right, purple,cyan); /* background: linear-gradient(to right, purple,cyan,blue,lime,yellow,orange,red) */;
-transition: width 0.1s ease;  
+transition: width 0.125s ease;  
 `;
 
   const text = document.createElement("p");
@@ -110,7 +110,7 @@ margin-top: 10px;
   const intervalId = setInterval(() => {
     progress += step;
     progressBar.style.width = `${progress}%`;
-    if (progress === 100) {
+    if (progress >= 100) {
       clearInterval(intervalId);
       setTimeout(() => {
         overlay.style.opacity = 0;
@@ -128,7 +128,7 @@ window.addEventListener(
   "load",
   function load(e) {
     window.removeEventListener("load", load, false);
-    simulateProgress(document.body, 10, 100, () => {
+    simulateProgress(document.body, 15, 100, () => {
       listener();
     });
   },
