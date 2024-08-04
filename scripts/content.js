@@ -1,4 +1,4 @@
-console.log("MySkEnchanter/scripts/content.js:LOADED");
+console.log("MySKEnchanter/scripts/content.js:LOADED");
 function logo() {
   const url = new URL(window.location.href);
   const decodedSearchParams = new URLSearchParams(url.searchParams);
@@ -36,7 +36,7 @@ function logo() {
   ske_icon_container.style.right = "5px";
   ske_icon_container.style.width = "32px";
   ske_icon_container.style.height = "32px";
-  ske_icon_container.src = "https://raw.githubusercontent.com/keegang6705/MySkEnchanter/master/image/Favicon/favicon-310x310.png"
+  ske_icon_container.src = "https://raw.githubusercontent.com/keegang6705/MySKEnchanter/master/image/Favicon/favicon-310x310.png"
   if (!ske_status){
     ske_icon_container.style.filter = "grayscale(100%)";
   }
@@ -56,7 +56,7 @@ function logo() {
 logo();
 
 window.navigation.addEventListener("navigate", (event) => {
-  console.log("MySkEnchanter/scripts/content.js: DETECT: url change")
+  console.log("MySKEnchanter/scripts/content.js: DETECT url change")
   setTimeout(() => {
     document.body.removeChild(document.getElementById("triangle-container"));
     logo();

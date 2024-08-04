@@ -1,4 +1,4 @@
-console.log("MySkEnchanter/scripts/background.js:LOADED");
+console.log("MySKEnchanter/scripts/background.js:LOADED");
 
 const url_list = [
   { path: "classes", parameter: "" },
@@ -6,7 +6,19 @@ const url_list = [
 ];
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  if (changeInfo.status === "loading" && tab.url.startsWith("https://www.mysk.school")) {
+  chrome.storage.sync.get("settings", function(result) {
+    var ske_enable = true;
+    if (chrome.runtime.lastError) {
+      alert('Error loading setting:', settings, chrome.runtime.lastError);
+      ske_enable = true;
+    }
+  
+    var settingValue = result.settings
+    if (JSON.stringify(settingValue) === "{}"){
+      ske_enable = true;
+    }
+    ske_enable = settingValue["setting2-state"];
+  if (ske_enable && changeInfo.status === "loading" && tab.url.startsWith("https://www.mysk.school")) {
     let foundMatch = false;
     const fill = tab.url.includes("?") ? "&" : "?";
     for (let i = 0; i < url_list.length; i++) {
@@ -31,4 +43,5 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       }
     }
   }
+});
 });
