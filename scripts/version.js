@@ -76,7 +76,7 @@ function updateButton(){
   `;
   button.className="btn-danger"
   button.addEventListener('click', () => {
-      chrome.tabs.create({ url: 'https://' });
+      chrome.tabs.create({ url: 'https://chromewebstore.google.com/detail/myskenchanter/cblocekkcfgogiepbopohmbbejninodm' });
     });
   container.appendChild(button);
   container.appendChild(document.createElement("p"))
