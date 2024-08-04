@@ -115,7 +115,11 @@ chrome.storage.sync.get("settings", function(result) {
   if (JSON.stringify(settingValue) === "{}"){
     version_check_enable = true;
   }
-  version_check_enable = settingValue["setting1-state"];
+  try{
+    version_check_enable = settingValue["setting1-state"];
+    } catch {
+      version_check_enable = true
+    }
   if (version_check_enable){
     check();
   }

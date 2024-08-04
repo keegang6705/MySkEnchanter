@@ -9,7 +9,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   chrome.storage.sync.get("settings", function(result) {
     var ske_enable = true;
     if (chrome.runtime.lastError) {
-      alert('Error loading setting:', settings, chrome.runtime.lastError);
+      console.log('Error loading setting:', settings, chrome.runtime.lastError);
       ske_enable = true;
     }
   
@@ -17,7 +17,11 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (JSON.stringify(settingValue) === "{}"){
       ske_enable = true;
     }
+    try{
     ske_enable = settingValue["setting2-state"];
+    } catch {
+      ske_enable = true
+    }
   if (ske_enable && changeInfo.status === "loading" && tab.url.startsWith("https://www.mysk.school")) {
     let foundMatch = false;
     const fill = tab.url.includes("?") ? "&" : "?";

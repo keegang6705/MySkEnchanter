@@ -4,9 +4,14 @@ const send_email_btn = document.getElementById("btn-send-email");
 const donate_btn = document.getElementById("btn-donate");
 const settings_btn = document.getElementById("btn-settings");
 const settings_container = document.getElementById("settings-container");
-
-// Cache the checkboxes
+const reset_btn = document.getElementById("btn-reset");
 var settingCheckboxes = document.querySelectorAll('input[type="checkbox"][id$="-state"]');
+
+reset_btn.addEventListener("click", function () {
+    chrome.storage.sync.clear(function() {
+      });
+      
+});
 
 send_email_btn.addEventListener("click", function () {
     chrome.tabs.create({
@@ -66,5 +71,17 @@ settings_btn.addEventListener("click", function() {
         settings_container.style.display = "none";
     }
 });
+chrome.storage.sync.get("settings", function(result) {
+    if (chrome.runtime.lastError) {
+        console.error('Error loading settings:', chrome.runtime.lastError);
+        return;
+    }
 
-loadSettings();
+    var settings = result.settings;
+    if (!settings || Object.keys(settings).length === 0) {
+        saveSettings();
+    } else {
+        loadSettings();
+    }
+});
+
