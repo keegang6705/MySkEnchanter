@@ -43,13 +43,15 @@ function logo() {
   triangle_container.appendChild(ske_icon_container)
   
   document.body.appendChild(triangle_container);
-  triangle_container.addEventListener("click", ()=>{
-    if(ske_status){
-      window.location.href = url.replace("ske=true","ske=false")
-    }else{
-      window.location.href = url.replace("ske=false","ske=true")
+  const triangle_container_ = document.getElementById('triangle_container');
+  triangle_container.addEventListener("click", () => {
+    if (ske_status) {
+        decodedSearchParams.set("ske", "false");
+    } else {
+        decodedSearchParams.set("ske", "true");
     }
-  });
+    window.location.href = `${url.origin}${url.pathname}?${decodedSearchParams.toString()}`;
+});
 }
 logo();
 
