@@ -1,7 +1,7 @@
 {
     "name": "MySKEnchanter",
-    "version": "3.4",
-    "version_name":"2024.8.5-1-chrome",
+    "version": "3.5",
+    "version_name":"2024.8.5-2-chrome",
     "description": "upgrade MySK and add some features",
     "manifest_version": 3,
     "permissions": ["activeTab","tabs", "storage", "scripting"],

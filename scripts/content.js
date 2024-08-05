@@ -62,3 +62,10 @@ window.navigation.addEventListener("navigate", (event) => {
     logo();
   }, 250);
 })
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.action === "updateUrl") {
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.append("ske", "false");
+    history.pushState(null, "", newUrl.toString());
+  }
+});

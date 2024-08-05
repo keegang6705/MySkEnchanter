@@ -44,7 +44,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     
     if (!foundMatch) {
       if (!tab.url.includes("ske=")) {
-        chrome.tabs.update(tabId, { url: `${tab.url}${fill}ske=false` });
+        chrome.tabs.sendMessage(tabId, { action: "updateUrl", fill: fill });
       }
     }
   }
