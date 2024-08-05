@@ -1,7 +1,7 @@
 {
     "name": "MySKEnchanter",
-    "version": "3.3",
-    "version_name":"2024.8.4-5-chrome",
+    "version": "3.4",
+    "version_name":"2024.8.5-1-chrome",
     "description": "upgrade MySK and add some features",
     "manifest_version": 3,
     "permissions": ["activeTab","tabs", "storage", "scripting"],
@@ -26,6 +26,13 @@
           "matches": [
             "https://www.mysk.school/classes?ske=true*",
             "https://www.mysk.school/en-US/classes?ske=true*"
+          ]
+        },
+        {
+          "js": ["scripts/learn.js"],
+          "matches": [
+            "https://www.mysk.school/learn?ske=true*",
+            "https://www.mysk.school/en-US/learn?ske=true*"
           ]
         }
       ],

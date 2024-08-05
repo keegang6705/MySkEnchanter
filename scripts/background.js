@@ -3,6 +3,7 @@ console.log("MySKEnchanter/scripts/background.js:LOADED");
 const url_list = [
   { path: "classes", parameter: "" },
   { path: "search/students/results", parameter: "" },
+  { path: "learn", parameter: "" },
 ];
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
