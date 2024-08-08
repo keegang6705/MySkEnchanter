@@ -1,9 +1,9 @@
 console.log("MySKEnchanter/scripts/background.js:LOADED");
 
 const url_list = [
-  { path: "classes", parameter: "" },
-  { path: "search/students/results", parameter: "" },
-  { path: "learn", parameter: "" },
+  { path: "classes", parameter: [{"name":"x","value":"0"},{"name":"y","value":"0"}] },
+  { path: "search/students/results", parameter: [] },
+  { path: "learn", parameter: [] },
 ];
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
@@ -25,7 +25,6 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     }
   if (ske_enable && changeInfo.status === "loading" && tab.url.startsWith("https://www.mysk.school")) {
     let foundMatch = false;
-    const fill = tab.url.includes("?") ? "&" : "?";
     for (let i = 0; i < url_list.length; i++) {
       const current_url = url_list[i].path;
       const current_parameter = url_list[i].parameter;
@@ -36,7 +35,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
         if (tab.url.includes("ske=true") || tab.url.includes("ske=false")) {
           break;
         } else {
-          chrome.tabs.update(tabId, { url: `${tab.url}${fill}ske=true${current_parameter}` });
+          chrome.tabs.sendMessage(tabId, { action: "updateUrl", includeParameter: true,parameter: current_parameter,skeState:true });
         }
         break;
       }
@@ -44,7 +43,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     
     if (!foundMatch) {
       if (!tab.url.includes("ske=")) {
-        chrome.tabs.sendMessage(tabId, { action: "updateUrl", fill: fill });
+        chrome.tabs.sendMessage(tabId, { action: "updateUrl" , includeParameter: false ,skeState:false});
       }
     }
   }

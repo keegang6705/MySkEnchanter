@@ -2,9 +2,9 @@ console.log("MySKEnchanter/scripts/content.js:LOADED");
 function logo() {
   const url = new URL(window.location.href);
   const decodedSearchParams = new URLSearchParams(url.searchParams);
-  const ske_status = decodedSearchParams.get("ske") === "true"; 
+  const ske_status = decodedSearchParams.get("ske") === "true";
   const triangle_container = document.createElement("button");
-  triangle_container.id = "triangle-container"
+  triangle_container.id = "triangle-container";
 
   triangle_container.style.position = "absolute";
   triangle_container.style.top = "0";
@@ -21,9 +21,9 @@ function logo() {
   svg.style.right = "0";
   const polygon = document.createElementNS(svgNS, "polygon");
   polygon.setAttribute("points", "0,0 68,0 68,68");
-  if (ske_status){
+  if (ske_status) {
     polygon.setAttribute("fill", "indigo");
-  } else{
+  } else {
     polygon.setAttribute("fill", "grey");
   }
 
@@ -36,36 +36,48 @@ function logo() {
   ske_icon_container.style.right = "5px";
   ske_icon_container.style.width = "32px";
   ske_icon_container.style.height = "32px";
-  ske_icon_container.src = "https://raw.githubusercontent.com/keegang6705/MySKEnchanter/master/image/Favicon/favicon-310x310.png"
-  if (!ske_status){
+  ske_icon_container.src =
+    "https://raw.githubusercontent.com/keegang6705/MySKEnchanter/master/image/Favicon/favicon-310x310.png";
+  if (!ske_status) {
     ske_icon_container.style.filter = "grayscale(100%)";
   }
-  triangle_container.appendChild(ske_icon_container)
-  
+  triangle_container.appendChild(ske_icon_container);
+
   document.body.appendChild(triangle_container);
-  const triangle_container_ = document.getElementById('triangle_container');
+  const triangle_container_ = document.getElementById("triangle_container");
   triangle_container.addEventListener("click", () => {
     if (ske_status) {
-        decodedSearchParams.set("ske", "false");
+      decodedSearchParams.set("ske", "false");
     } else {
-        decodedSearchParams.set("ske", "true");
+      decodedSearchParams.set("ske", "true");
     }
-    window.location.href = `${url.origin}${url.pathname}?${decodedSearchParams.toString()}`;
-});
+    window.location.href = `${url.origin}${
+      url.pathname
+    }?${decodedSearchParams.toString()}`;
+  });
 }
 logo();
 
 window.navigation.addEventListener("navigate", (event) => {
-  console.log("MySKEnchanter/scripts/content.js: DETECT url change")
+  console.log("MySKEnchanter/scripts/content.js: DETECT url change");
   setTimeout(() => {
     document.body.removeChild(document.getElementById("triangle-container"));
     logo();
   }, 250);
-})
+});
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.action === "updateUrl") {
     const newUrl = new URL(window.location.href);
-    newUrl.searchParams.append("ske", "false");
-    history.pushState(null, "", newUrl.toString());
+    newUrl.searchParams.append("ske", request.skeState.toString());
+    if (request.includeParameter) {
+      const params = request.parameter;
+      params.forEach((e) => newUrl.searchParams.append(e["name"], e["value"]));
+    }
+    if (request.skeState) {
+      window.location.href = newUrl.toString();
+    } else {
+      history.pushState(null, "", newUrl.toString());
+    }
+    sendResponse({ status: "success" });
   }
 });
