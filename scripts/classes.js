@@ -50,10 +50,10 @@ async function listener() {
   }
 }
 
-async function constructAndOpenUrl(firstName, lastName, lang) {
+async function constructAndOpenUrl(firstName, lastName,nickName, lang) {
   const search_url = `https://www.mysk.school/${lang}search/students/results?full_name=${encodeURIComponent(
     firstName
-  )}%20${encodeURIComponent(lastName)}`;
+  )}%20${encodeURIComponent(lastName)}&nickname=${nickName}`;
   window.open(search_url);
 }
 
@@ -281,17 +281,17 @@ async function displayInfo() {
               classroom_students[i].students.people.first_name_th;
             const student_last_name =
               classroom_students[i].students.people.last_name_th;
-            constructAndOpenUrl(student_first_name, student_last_name, "");
+            const student_nick_name =
+              classroom_students[i].students.people.nickname_th;
+            constructAndOpenUrl(student_first_name, student_last_name,student_nick_name, "");
           } else {
             const student_first_name =
               classroom_students[i].students.people.first_name_en;
             const student_last_name =
               classroom_students[i].students.people.last_name_en;
-            constructAndOpenUrl(
-              student_first_name,
-              student_last_name,
-              "en-US/"
-            );
+            const student_nick_name =
+              classroom_students[i].students.people.nickname_en;
+            constructAndOpenUrl(student_first_name,student_last_name,student_nick_name,"en-US/");
           }
         });
         const skcCardHeader = document.createElement("div");

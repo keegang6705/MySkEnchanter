@@ -10,6 +10,7 @@ Makes MySK do more than ever before.
 # patch note
 | Version | Version name | Details |
 | :---: | :---: | :---: |
+|3.7|2024.8.11-1-chrome| remake search url |
 |3.6|2024.8.8-1-chrome| remake icon & fix updateUrl |
 |3.5|2024.8.5-2-chrome| use history.pushState instead of chrome.tabs.update in ske logic |
 |3.4|2024.8.5-1-chrome| remove annoying reminders from https://www.mysk.school/learn |
