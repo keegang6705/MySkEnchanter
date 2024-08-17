@@ -104,23 +104,18 @@ async function check(){
         alert("การใช้งานโดยไม่ตรวจสอบเวอร์ชั่นอาจสร้างความผิดพลาดได้")
       }
   }
-chrome.storage.sync.get("settings", function(result) {
-  var version_check_enable = true;
-  if (chrome.runtime.lastError) {
-    alert('Error loading setting:', settings, chrome.runtime.lastError);
-    version_check_enable = true;
-  }
-
-  var settingValue = result.settings
-  if (JSON.stringify(settingValue) === "{}"){
-    version_check_enable = true;
-  }
-  try{
-    version_check_enable = settingValue["setting1-state"];
-    } catch {
-      version_check_enable = true
+  chrome.storage.sync.get("settings", function(result) {
+    let versionCheckEnabled = true;
+    if (chrome.runtime.lastError) {
+      console.error('Error loading settings:', chrome.runtime.lastError);
+    } else {
+      const settings = result.settings || {};
+      if (Object.keys(settings).length > 0) {
+        versionCheckEnabled = settings["setting1-state"] ?? true;
+      }
     }
-  if (version_check_enable){
-    check();
-  }
-});
+    if (versionCheckEnabled) {
+      check();
+    }
+  });
+  
