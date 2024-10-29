@@ -2,10 +2,10 @@ console.log("MySKEnchanter/scripts/classes.js:LOADED");
 
 async function getKey() {
   const res = await fetch(
-    "https://www.mysk.school/_next/static/chunks/pages/_app-cbd22d5fc12a8ae7.js"
+    "https://www.mysk.school/_next/static/chunks/pages/_app-fbe76f946d84386a.js"
   );
   const text = await res.text();
-  const key = text.slice(927, 1135);
+  const key = text.slice(928, 1136);
   return key;
 }
 
@@ -185,7 +185,7 @@ async function displayInfo() {
   console.log(class_info);
   if (await isMyRoom()) {
   } else {
-    const card_parent = document.querySelector(".flex.grow.flex-col.gap-5");
+    const card_parent = document.querySelector(".h-full");
     simulateProgress(card_parent, 100, 1, () => {});
     setTimeout(() => {
       const card_body = document.querySelector("section.flex-col-reverse");
