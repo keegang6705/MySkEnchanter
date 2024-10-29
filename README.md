@@ -10,6 +10,7 @@ Makes MySK do more than ever before.
 # patch note
 | Version | Version name | Details |
 | :---: | :---: | :---: |
+|3.8|2024.10.29-1-chrome| fix not working on new version of mysk |
 |3.7|2024.8.11-1-chrome| remake search url |
 |3.6|2024.8.8-1-chrome| remake icon & fix updateUrl |
 |3.5|2024.8.5-2-chrome| use history.pushState instead of chrome.tabs.update in ske logic |
