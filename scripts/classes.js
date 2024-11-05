@@ -2,7 +2,7 @@ console.log("MySKEnchanter/scripts/classes.js:LOADED");
 
 async function getKey() {
   const res = await fetch(
-    "https://www.mysk.school/_next/static/chunks/pages/_app-fbe76f946d84386a.js"
+    "https://www.mysk.school/_next/static/chunks/pages/_app-4b73c505468b5548.js"
   );
   const text = await res.text();
   const key = text.slice(928, 1136);
