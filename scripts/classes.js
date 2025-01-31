@@ -1,11 +1,12 @@
 console.log("MySKEnchanter/scripts/classes.js:LOADED");
 
 async function getKey() {
-  const res = await fetch(
+  /*const res = await fetch(
     "https://www.mysk.school/_next/static/chunks/pages/_app-4b73c505468b5548.js"
   );
   const text = await res.text();
-  const key = text.slice(928, 1136);
+  const key = text.slice(928, 1136);*/
+  const key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlrcXFlcGJvZHFqaGl3ZmpjdnhlIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTA3ODQ3NDQsImV4cCI6MTk2NjM2MDc0NH0.AuMiPwZfjapD_EW8ZyEWq9y6z3JqLC_rO3V4Bw7K300"
   return key;
 }
 
